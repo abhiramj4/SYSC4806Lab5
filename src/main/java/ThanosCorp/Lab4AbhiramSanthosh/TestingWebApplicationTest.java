@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,8 +21,15 @@ public class TestingWebApplicationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void shouldReturnDefaultMessage() throws Exception {
-        this.mockMvc.perform(get("/addressbooks")).andDo(print()).andExpect(status().isOk());
+    public void contextLoads() {
     }
+
+    @Test
+    public void returnAllAddressBooks() throws Exception {
+        this.mockMvc.perform(get("/addressbooks")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("Bilbo")));
+    }
+
+
 
 }
